@@ -20,6 +20,7 @@ from typing import List, Optional, Dict
 
 from BotBaka.api import CQApi
 from BotBaka.command.admin_command import BanCommand, UnBanCommand
+from BotBaka.command.attack import AttackCommand
 from BotBaka.command.base import BaseCommand
 from BotBaka.command.misc_command import HelpCommand, ChangelogCommand
 from BotBaka.command.news import NewsCommand
@@ -46,6 +47,7 @@ class MessageHandler:
             "%help": HelpCommand(),
             "%changelog": ChangelogCommand(),
             "%news": NewsCommand(),
+            "%attack": AttackCommand(),
         }
 
     def execute(self, message: str):
@@ -54,6 +56,11 @@ class MessageHandler:
         # 获取基础信息
         from_qq = obj.get(MessageMeta.USER_ID)
         from_group = obj.get(MessageMeta.GROUP_ID)
+
+        if from_group not in [574255110, 672534169]:
+            logger.error("No target group message: {}".format(from_group))
+            return
+
         content = obj.get(MessageMeta.MESSAGE)
         # logger.debug("type of content: {}".format(type(content)))
         card = obj.get(MessageMeta.SENDER).get("card")

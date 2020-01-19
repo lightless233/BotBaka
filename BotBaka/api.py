@@ -51,8 +51,10 @@ class CQApi:
         params = {
             "group_id": group,
             "user_id": qq,
-            "duration": duration * 60
+            "duration": int(duration * 60)
         }
+
+        logger.debug("set_group_ban params: {}".format(params))
 
         self._call(method_name, params)
 
