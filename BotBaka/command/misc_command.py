@@ -31,8 +31,8 @@ help_msg = """BotBaka version 1.0.2
 ---------------
 
 --- 其他信息 ---
-项目地址：https://github.com/lightless233/BotXYZ
-Bug、Request报告地址：https://github.com/lightless233/BotXYZ/issues
+项目地址：https://github.com/lightless233/BotBaka
+Bug、Request报告地址：https://github.com/lightless233/BotBaka/issues
 ---------------
 """
 
