@@ -18,6 +18,7 @@ from typing import List
 from django.conf import settings
 
 from BotBaka.api import CQApi
+from BotBaka.database.models import AdminUserModel
 
 
 class BaseCommand:
@@ -32,7 +33,11 @@ class BaseCommand:
         self.CQApi = CQApi()
 
     def _check_admin(self, from_group, from_qq) -> bool:
-        if from_qq not in settings.ADMIN_QQ:
+
+        admins = AdminUserModel.instance.all()
+        tmp_admin_qq = [x.qq for x in admins]
+
+        if from_qq not in settings.ADMIN_QQ and from_qq not in tmp_admin_qq:
             self.CQApi.send_group_message(from_group, from_qq, "你还不是管理员呢！不能使用这样的命令哦！")
             self.CQApi.set_group_ban(from_group, from_qq, 1)
             return False
