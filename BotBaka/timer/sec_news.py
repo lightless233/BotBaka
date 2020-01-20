@@ -37,8 +37,12 @@ class SecNewsTimer(SingleThreadEngine):
         logger.debug("SecNewsTimer start!")
 
         while self.is_running():
-
-            response = requests.get(self.target_url, timeout=12)
+            try:
+                response = requests.get(self.target_url, timeout=12)
+            except requests.RequestException as e:
+                logger.error("Error while fetch news, {e}".format(e=e))
+                self.ev.wait(5)
+                continue
             page_content = response.text
 
             # 筛选数据

@@ -16,6 +16,7 @@ from typing import List
 
 from .base import BaseCommand
 from ..database.models import NewsModel
+from ..utils.log import logger
 
 
 class NewsCommand(BaseCommand):
@@ -25,7 +26,8 @@ class NewsCommand(BaseCommand):
     def process(self, from_group: int, from_qq: int, name: str, command_list: List[str]):
         # 从db中找到今天的新闻
         news = NewsModel.instance.get_today_news()
-        if news is None:
+        logger.debug("news: {}".format(news))
+        if not news:
             self.CQApi.send_group_message(from_group, from_qq, "今日暂无新闻！")
         else:
             msg = ["{}\n{}".format(n.title, n.url) for n in news]
