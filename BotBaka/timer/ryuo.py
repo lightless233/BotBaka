@@ -39,7 +39,9 @@ class RyuoTimer(SingleThreadEngine):
             # 判断当前时间是否为凌晨7点
             # windows上没有好用的crontab，所以只能每隔1分钟进行一次判断
             now = datetime.datetime.now()
-            if now.hour == 7 and now.minute == 0:
+            if now.hour == 7 and now.minute == 5:
+
+                logger.info("Ryuo timer work!")
 
                 # 从db中获取前24个小时的发言内容
                 results: list = RyuoModel.instance.get_today_cnt()
@@ -63,13 +65,18 @@ class RyuoTimer(SingleThreadEngine):
 
                 # 设置专属称号，并取消前一个人的称号
                 self.CQApi.set_group_special_title(self.target_group, ryuo_qq, "今日份的喷水龙王")
-                self.CQApi.set_group_special_title(self.target_group, last_ryuo.qq, "")
+                if last_ryuo:
+                    self.CQApi.set_group_special_title(self.target_group, last_ryuo.qq, "")
 
                 # 设置为管理员,并取消前一天的管理员
                 AdminUserModel.instance.add_admin(ryuo_qq)
-                AdminUserModel.instance.remove_admin(last_ryuo.qq)
+                if last_ryuo:
+                    AdminUserModel.instance.remove_admin(last_ryuo.qq)
 
                 # 发到群里
                 self.CQApi.send_group_message(self.target_group, None, message)
+
+                self.ev.wait(60)
+
             else:
                 self.ev.wait(60)
