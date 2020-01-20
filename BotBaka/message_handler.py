@@ -27,6 +27,7 @@ from BotBaka.command.news import NewsCommand
 from BotBaka.data.common_data import MessageMeta, PostType, SubType, MessageType
 from BotBaka.pipeline.base import BasePipeline
 from BotBaka.pipeline.repeat_checker import RepeatCheckerPipeline
+from BotBaka.pipeline.ryuo import RyuoPipeline
 from BotBaka.pipeline.thumb_checker import ThumbCheckerPipeline
 from BotBaka.utils.log import logger
 
@@ -39,6 +40,7 @@ class MessageHandler:
         self.pipelines: List[BasePipeline] = [
             ThumbCheckerPipeline(),
             RepeatCheckerPipeline(),
+            RyuoPipeline(),
         ]
 
         self.commands: Dict[str, BaseCommand] = {

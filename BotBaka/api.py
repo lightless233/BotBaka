@@ -30,6 +30,8 @@ class CQApi:
             "set_group_ban_async": self.base_url + "/set_group_ban_async",
             "send_group_message": self.base_url + "/send_group_msg",
             "send_group_message_async": self.base_url + "/send_group_msg_async",
+            "set_group_special_title": self.base_url + "/set_group_special_title",
+            "set_group_special_title_async": self.base_url + "/set_group_special_title_async",
         }
 
         self.token = "GKMFZWDQ2011"
@@ -72,6 +74,20 @@ class CQApi:
         params = {
             "group_id": group,
             "message": message if at_message == "" else at_message + "\n" + message
+        }
+
+        self._call(method_name, params)
+
+    def set_group_special_title(self, group: int, qq: int, title: str, use_async=True):
+        if use_async:
+            method_name = "set_group_special_title_async"
+        else:
+            method_name = "set_group_special_title"
+
+        params = {
+            "group_id": group,
+            "user_id": qq,
+            "special_title": title
         }
 
         self._call(method_name, params)

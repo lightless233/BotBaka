@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 
 """
-    BotBaka.pipeline.thumb_checker
+    BotBaka.timer.sec_news
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     $END$

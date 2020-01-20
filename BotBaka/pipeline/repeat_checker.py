@@ -65,7 +65,7 @@ class RepeatCheckerPipeline(BasePipeline):
         point = random.random()
         logger.info(f"prob: {prob}, point: {point}")
         if point < prob:
-            self.CQApi.set_group_ban(from_group, from_qq, repeat_count * repeat_count / 2 * 60)
+            self.CQApi.set_group_ban(from_group, from_qq, repeat_count * repeat_count / 2)
             self.CQApi.send_group_message(from_group, from_qq, "嘤嘤嘤，复读被抓住了呢!")
             return False
 
