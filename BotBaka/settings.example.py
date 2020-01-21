@@ -105,3 +105,4 @@ STATIC_URL = '/static/'
 LOG_TO_FILE = True
 LOG_PATH = "./logs/"
 LOG_FILENAME = "baka.log"
+CQ_API_ADDRESS = "http://127.0.0.1:5700"

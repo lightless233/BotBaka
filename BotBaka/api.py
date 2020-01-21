@@ -13,6 +13,7 @@
     :copyright: Copyright (c) 2017-2020 lightless. All rights reserved
 """
 import requests
+from django.conf import settings
 
 from BotBaka.utils.log import logger
 from BotBaka.utils.quick_at import QuickAt
@@ -23,7 +24,7 @@ class CQApi:
     def __init__(self):
         super(CQApi, self).__init__()
 
-        self.base_url = "http://localhost:5700"
+        self.base_url = settings.CQ_API_ADDRESS
 
         self.api_list = {
             "set_group_ban": self.base_url + "/set_group_ban",
