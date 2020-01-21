@@ -22,6 +22,8 @@ class QuickAt:
     def build_at_msg(at_qq: Union[int, str]) -> Optional[str]:
         if isinstance(at_qq, int):
             at_qq = str(at_qq)
+        elif isinstance(at_qq, str):
+            pass
         else:
             return None
 
