@@ -87,10 +87,9 @@ class InviteCommand(BaseCommand):
                 gu=-1,
             )
 
-        msg = "邀请成功，请以下用户尽快确认，事件id：{}, " \
-              "如果违约将要变成鸽子精哦~\n".format(_obj.id) + ", ".join(
-            [QuickAt.build_at_msg(qq) for qq in qqs]
-        )
+        msg = "邀请成功，请以下用户尽快确认，事件id：{}, 如果违约将要变成鸽子精哦~\n".format(_obj.id)
+        for qq in qqs:
+            msg += QuickAt.build_at_msg(qq) + "\n"
         self.CQApi.send_group_message(from_group, from_qq, msg)
 
 
