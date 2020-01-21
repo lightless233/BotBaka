@@ -19,11 +19,12 @@ import traceback
 from typing import List, Optional, Dict
 
 from BotBaka.api import CQApi
-from BotBaka.command.admin_command import BanCommand, UnBanCommand
+from BotBaka.command.admin_command import BanCommand, UnBanCommand, TitleCommand
 from BotBaka.command.attack import AttackCommand
 from BotBaka.command.base import BaseCommand
 from BotBaka.command.misc_command import HelpCommand, ChangelogCommand
 from BotBaka.command.news import NewsCommand
+from BotBaka.command.invite import InviteAcceptCommand, InviteCommand, InviteGuCommand
 from BotBaka.data.common_data import MessageMeta, PostType, SubType, MessageType
 from BotBaka.pipeline.base import BasePipeline
 from BotBaka.pipeline.repeat_checker import RepeatCheckerPipeline
@@ -50,6 +51,12 @@ class MessageHandler:
             "%changelog": ChangelogCommand(),
             "%news": NewsCommand(),
             "%attack": AttackCommand(),
+            "%title": TitleCommand(),
+            "%invite": InviteCommand(),
+            "%invite_accept": InviteAcceptCommand(),
+            "%ia": InviteAcceptCommand(),
+            "%invite_gu": InviteGuCommand(),
+            "%ig": InviteGuCommand(),
         }
 
     def execute(self, message: str):
@@ -112,7 +119,9 @@ class MessageHandler:
             input_command_name = command_list[0]
             command_instance: Optional[BaseCommand] = self.commands.get(input_command_name, None)
             if command_instance is None:
-                self.commands.get("%help").process(from_group, from_qq, readable_name, command_list)
+                # self.commands.get("%help").process(from_group, from_qq, readable_name, command_list)
+                _api = CQApi()
+                _api.send_group_message(from_group, from_qq, "Unknown Command!")
             else:
                 try:
                     command_instance.process(from_group, from_qq, readable_name, command_list)

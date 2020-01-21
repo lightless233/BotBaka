@@ -64,7 +64,7 @@ class RyuoTimer(SingleThreadEngine):
                 LastRyuoModel.instance.create(qq=ryuo_qq, cnt=ryuo_cnt, nickname=ryuo_nickname)
 
                 # 设置专属称号，并取消前一个人的称号
-                self.CQApi.set_group_special_title(self.target_group, ryuo_qq, "今日份的喷水龙王")
+                self.CQApi.set_group_special_title(self.target_group, ryuo_qq, "今日喷水龙王")
                 if last_ryuo:
                     self.CQApi.set_group_special_title(self.target_group, last_ryuo.qq, "")
 
