@@ -49,7 +49,7 @@ class InviteTimer(SingleThreadEngine):
                 if _event.event_time - datetime.timedelta(minutes=5) < now:
                     invited_users = AppointmentUserModel.instance.get_invited_user_by_id(_event.id)
                     for iu in invited_users:
-                        if iu.accepted == -1:
+                        if iu.accepted == -1 and iu.gu == -1:
                             iu.gu = 1
                             iu.title_end_time = datetime.datetime.now() + datetime.timedelta(hours=12)
                             iu.save()
