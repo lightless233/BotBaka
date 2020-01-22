@@ -62,6 +62,8 @@ class InviteTimer(SingleThreadEngine):
                 if _user.title_end_time < now:
                     # 取消title
                     self.CQApi.set_group_special_title(self.target_group, _user.user_id, "")
+                    _user.has_title = 1
+                    _user.save()
                     logger.debug("取消{}的鸽子精称号！".format(_user))
 
             self.ev.wait(60)

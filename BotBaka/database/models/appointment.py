@@ -37,7 +37,7 @@ class AppointmentUserManager(models.Manager):
         return self.filter(event_id=event_id, user_id=user_id).first()
 
     def get_gu_user(self):
-        return self.filter(gu=1).all()
+        return self.filter(gu=1, has_title=0).all()
 
 
 class AppointmentModel(models.Model):
@@ -65,6 +65,7 @@ class AppointmentUserModel(models.Model):
     accepted = models.SmallIntegerField(default=-1, null=False)
     gu = models.SmallIntegerField(default=-1, null=False)
     title_end_time = models.DateTimeField(default=datetime.datetime.now, null=False)
+    has_title = models.SmallIntegerField(default=0, null=False)
 
     created_time = models.DateTimeField(auto_now_add=True)
     updated_time = models.DateTimeField(auto_now=True)
