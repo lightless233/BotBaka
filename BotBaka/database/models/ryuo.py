@@ -17,6 +17,8 @@ import datetime
 
 from django.db import models
 
+from BotBaka.utils.log import logger
+
 
 class RyuoManager(models.Manager):
     def get_today_user_by_qq(self, qq):
@@ -44,7 +46,7 @@ class RyuoManager(models.Manager):
             if qq not in ret_value:
                 ret_value[qq] = {"nickname": nickname, "cnt": cnt}
             else:
-                ret_value[qq] = {"nickname": nickname, "cnt": ret_value.get("qq").get("cnt") + cnt}
+                ret_value[qq] = {"nickname": nickname, "cnt": ret_value.get(qq).get("cnt") + cnt}
 
         # 排序
         sorted_res = sorted(ret_value.items(), key=lambda d: d[1]["cnt"])
