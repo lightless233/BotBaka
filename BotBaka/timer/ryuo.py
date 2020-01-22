@@ -39,7 +39,7 @@ class RyuoTimer(SingleThreadEngine):
             # 判断当前时间是否为凌晨7点
             # windows上没有好用的crontab，所以只能每隔1分钟进行一次判断
             now = datetime.datetime.now()
-            if now.hour == 7 and now.minute == 5:
+            if now.hour == 9 and now.minute == 5:
 
                 logger.info("Ryuo timer work!")
 
