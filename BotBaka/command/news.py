@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 
 """
-    BotBaka.command.attack
+    BotBaka.command.news
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     $END$
