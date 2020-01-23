@@ -25,6 +25,7 @@ from BotBaka.command.base import BaseCommand
 from BotBaka.command.misc_command import HelpCommand, ChangelogCommand
 from BotBaka.command.news import NewsCommand
 from BotBaka.command.invite import InviteAcceptCommand, InviteCommand, InviteGuCommand
+from BotBaka.command.rss import RssCommand
 from BotBaka.data.common_data import MessageMeta, PostType, SubType, MessageType
 from BotBaka.pipeline.base import BasePipeline
 from BotBaka.pipeline.repeat_checker import RepeatCheckerPipeline
@@ -57,6 +58,7 @@ class MessageHandler:
             "%ia": InviteAcceptCommand(),
             "%invite_gu": InviteGuCommand(),
             "%ig": InviteGuCommand(),
+            "%rss": RssCommand()
         }
 
     def execute(self, message: str):
