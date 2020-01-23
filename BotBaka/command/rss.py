@@ -36,7 +36,7 @@ class RssCommand(BaseCommand):
     def process(self, from_group: int, from_qq: int, name: str, command_list: List[str]):
         try:
             action = command_list[1]
-            name = command_list[2]
+            # name = command_list[2]
             # rss_link = command_list[3]
         except IndexError:
             self.CQApi.send_group_message(
@@ -48,6 +48,7 @@ class RssCommand(BaseCommand):
         action = action.lower()
         if action == "add":
             try:
+                name = command_list[2]
                 rss_link = command_list[3]
             except IndexError:
                 self.CQApi.send_group_message(from_group, from_qq, self.err_msg)
@@ -66,6 +67,11 @@ class RssCommand(BaseCommand):
                     self.CQApi.send_group_message(from_group, from_qq, "操作失败!")
                     return
         elif action in ("remove", "delete", "del"):
+            try:
+                name = command_list[2]
+            except IndexError:
+                self.CQApi.send_group_message(from_group, from_qq, self.err_msg)
+                return
             RssSourceModel.instance.filter(name=name).delete()
             self.CQApi.send_group_message(from_group, from_qq, "删除成功!")
             return
