@@ -23,6 +23,10 @@ help_msg = """BotBaka version 1.0.2
 %attack - 攻击某个玩家，格式：%attack @目标 时长(分钟)
 %game - 游戏命令
 %news - 每日新闻 (Author: WinFog)
+%rss - RSS订阅功能
+  - %rss list 展示当前 RSS 列表
+  - %rss add name rss-url 添加一个 RSS 源
+  - %rss delete name 删除制定的 RSS 源
 ---------------
 
 --- Admin命令 ---
