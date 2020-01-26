@@ -95,7 +95,7 @@ class PlayerRegainManager(models.Manager):
 
 class PlayerRegainModel(models.Model):
     class Meta:
-        table_name = "baka_player_regain"
+        db_table = "baka_player_regain"
 
     qq = models.PositiveIntegerField(default=0, null=False)
     next_hp_time = models.DateTimeField(default=datetime.datetime.now)
