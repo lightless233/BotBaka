@@ -42,7 +42,7 @@ class GameRegainTimer(SingleThreadEngine):
 
             for _player in players:
                 qq = _player.qq
-                regain_obj = PlayerRegainModel.instance.get(qq=qq)
+                regain_obj = PlayerRegainModel.instance.filter(qq=qq).first()
                 if regain_obj is None:
                     regain_obj = PlayerRegainModel.instance.create(qq=qq)
 
