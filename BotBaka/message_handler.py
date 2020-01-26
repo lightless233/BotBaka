@@ -22,6 +22,7 @@ from BotBaka.api import CQApi
 from BotBaka.command.admin_command import BanCommand, UnBanCommand, TitleCommand
 from BotBaka.command.attack import AttackCommand
 from BotBaka.command.base import BaseCommand
+from BotBaka.command.game.game_handler import GameCommand
 from BotBaka.command.misc_command import HelpCommand, ChangelogCommand
 from BotBaka.command.news import NewsCommand
 from BotBaka.command.invite import InviteAcceptCommand, InviteCommand, InviteGuCommand
@@ -58,7 +59,8 @@ class MessageHandler:
             "%ia": InviteAcceptCommand(),
             "%invite_gu": InviteGuCommand(),
             "%ig": InviteGuCommand(),
-            "%rss": RssCommand()
+            "%rss": RssCommand(),
+            "%game": GameCommand(),
         }
 
     def execute(self, message: str):
