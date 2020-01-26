@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 
 """
-    BotBaka.command.attack
+    BotBaka.command.invite
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     $END$
@@ -24,7 +24,6 @@ from ..utils.quick_at import QuickAt
 
 class InviteCommand(BaseCommand):
     """
-
     %invite 文明6 2020-01-21/21:00 @a @b @c
     活动结束前15分钟，如果没有拒绝，默认为接受状态
     预约时间必须大于半小时
@@ -55,7 +54,7 @@ class InviteCommand(BaseCommand):
         try:
             event_time = datetime.datetime.strptime(event_time, "%Y-%m-%d/%H:%M")
         except ValueError:
-            self.CQApi.send_group_message(from_group, from_qq, "时间格式错误，请使用：%Y-%m-%d_%H:%M:%S格式")
+            self.CQApi.send_group_message(from_group, from_qq, "时间格式错误，请使用：%Y-%m-%d/%H:%M格式")
             return
 
         # 检查预约时间和当前时间，预约时间必须大于半小时
