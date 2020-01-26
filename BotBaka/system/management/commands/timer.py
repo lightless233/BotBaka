@@ -16,7 +16,7 @@ import signal
 
 from django.core.management import BaseCommand
 
-from BotBaka.timer import SecNewsTimer, RyuoTimer, InviteTimer, RSSTimer
+from BotBaka.timer import SecNewsTimer, RyuoTimer, InviteTimer, RSSTimer, GameRegainTimer
 from BotBaka.utils.log import logger
 
 
@@ -31,6 +31,7 @@ class Command(BaseCommand):
             RyuoTimer(),
             InviteTimer(),
             RSSTimer(),
+            GameRegainTimer(),
         ]
 
     def __sigint_handler(self, sig, frame):
