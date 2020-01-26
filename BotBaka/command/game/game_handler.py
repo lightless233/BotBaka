@@ -56,4 +56,4 @@ sub-command list:
             self.CQApi.send_group_message(from_group, from_qq, self.error_message)
             return
         else:
-            self.sub_command.get(sub_command).process(from_group, from_qq, command_list)
+            self.sub_command.get(sub_command).process(from_group, from_qq, name, command_list)
