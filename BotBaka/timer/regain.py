@@ -29,7 +29,7 @@ class GameRegainTimer(SingleThreadEngine):
         self.name = "game-regain-timer"
 
     def _worker(self):
-        logger.info("{} start!".format(self.name))
+        logger.debug("{} start!".format(self.name))
 
         while self.is_running():
 
