@@ -14,6 +14,7 @@
 """
 from typing import List
 
+from .attack import AttackSubCommand
 from ..base import BaseCommand
 from .register import RegisterSubCommand
 from .status import StatusSubCommand
@@ -31,7 +32,7 @@ class GameCommand(BaseCommand):
             "register": RegisterSubCommand(),
             "status": StatusSubCommand(),
             "pt": PtSubCommand(),
-            "attack": None,
+            "attack": AttackSubCommand(),
             "item": None,
             "skill": None,
         }
@@ -41,8 +42,8 @@ sub-command list:
 
 %game register - 注册
 %game status - 展示玩家资料
-%game pt - 分配点数。格式：%game pt STR 1
-%game attack - FIRE! FIRE! FIRE! 格式：%game attack @qq [skill_name]
+%game pt - 分配点数。格式：%game pt STR 2
+%game attack - FIRE! FIRE! FIRE! 格式：%game attack @target [skill_name]
 """
 
     def process(self, from_group: int, from_qq: int, name: str, command_list: List[str]):
