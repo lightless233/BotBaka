@@ -91,7 +91,7 @@ class AttackSubCommand(BaseCommand):
                 return
 
             # 相关参数校验
-            if from_qq == _target_qq:
+            if from_qq == target_qq:
                 self.CQApi.send_group_message(from_group, from_qq, "目标有误！")
                 return
             if attacker_obj.current_hp == 0:
@@ -105,7 +105,7 @@ class AttackSubCommand(BaseCommand):
                 _regain_obj.save()
 
             # 检查目标是否有盾
-            _regain_obj: PlayerRegainModel = PlayerRegainModel.instance.filter(qq=_target_qq).first()
+            _regain_obj: PlayerRegainModel = PlayerRegainModel.instance.filter(qq=target_qq).first()
             if _regain_obj:
                 if _regain_obj.shield_time > datetime.datetime.now():
                     self.CQApi.send_group_message(from_group, from_qq, "目标玩家有护盾！")
