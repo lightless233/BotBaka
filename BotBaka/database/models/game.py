@@ -87,6 +87,19 @@ class PlayerManager(models.Manager):
             # todo skill 实装的时候需要修改
             return
 
+    def is_player_has_enough_sp(self, attacker, skill_name):
+        _obj: PlayerModel = self.filter(qq=attacker).first()
+        if _obj is None:
+            return False
+
+        if skill_name is None:
+            if _obj.current_sp >= 1:
+                return True
+        else:
+            pass
+
+        return False
+
     def is_player_alive(self, qq):
         _obj: PlayerModel = self.filter(qq=qq).first()
         if _obj is None:
