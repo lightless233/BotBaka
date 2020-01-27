@@ -181,7 +181,7 @@ class PlayerRegainModel(models.Model):
     qq = models.PositiveIntegerField(default=0, null=False)
     next_hp_time = models.DateTimeField(default=datetime.datetime.now)
     next_sp_time = models.DateTimeField(default=datetime.datetime.now)
-    next_resurrect_time = models.DateTimeField(default=datetime.datetime.now)
+    shield_time = models.DateTimeField(default=datetime.datetime.now)
 
     created_time = models.DateTimeField(auto_now_add=True)
     updated_time = models.DateTimeField(auto_now=True)

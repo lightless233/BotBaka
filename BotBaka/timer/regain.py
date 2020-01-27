@@ -28,6 +28,8 @@ class GameRegainTimer(SingleThreadEngine):
         super(GameRegainTimer, self).__init__()
         self.name = "game-regain-timer"
 
+        self.target_group = 672534169
+
     def _worker(self):
         logger.debug("{} start!".format(self.name))
 
@@ -53,9 +55,22 @@ class GameRegainTimer(SingleThreadEngine):
                 max_hp = _player.max_hp
                 current_hp = _player.current_hp
                 if current_time > regain_obj.next_hp_time and current_hp < max_hp:
-                    with transaction.atomic():
-                        PlayerModel.instance.update_x("hp", qq)
-                        PlayerRegainModel.instance.update_next_time("hp", qq)
+                    # 玩家当前的血量是0，死亡玩家，走复活流程，给盾
+                    if _player.current_hp == 0:
+                        with transaction.atomic():
+                            _player.current_hp = _player.max_hp
+                            _player.save()
+                            regain_obj.shield_time = datetime.datetime.now() + datetime.timedelta(hours=6)
+                            regain_obj.save()
+                            self.CQApi.send_group_message(
+                                self.target_group,
+                                _player.qq,
+                                "已复活，并获得6小时护盾，护盾期间主动攻击将失去护盾。"
+                            )
+                    else:
+                        with transaction.atomic():
+                            PlayerModel.instance.update_x("hp", qq)
+                            PlayerRegainModel.instance.update_next_time("hp", qq)
 
                 max_sp = _player.max_sp
                 current_sp = _player.current_sp
