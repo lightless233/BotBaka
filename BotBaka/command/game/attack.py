@@ -83,7 +83,7 @@ class AttackSubCommand(BaseCommand):
         attacker_obj: PlayerModel = PlayerModel.instance.get_player_by_qq(from_qq)
         target_obj: PlayerModel = PlayerModel.instance.get_player_by_qq(target_qq)
         if attacker_obj is None or target_obj is None:
-            self.CQApi.send_group_message(from_group, from_qq, "格式错误：{}".format(self._err_tips))
+            self.CQApi.send_group_message(from_group, from_qq, "格式错误或目标不存在：{}".format(self._err_tips))
             return
 
         # 1. 检查目标是否存活
@@ -108,9 +108,10 @@ class AttackSubCommand(BaseCommand):
         # 3.1 命中计算
         # 公式：攻击者命中 / (攻击者命中 + 敌方闪避) + D20随机值
         d20 = GameTools.d20() / 100
-        final_hit = attacker_obj.hit / (attacker_obj.hit + target_obj.eva) + d20
+        base_hit = attacker_obj.hit / (attacker_obj.hit + target_obj.eva)
+        final_hit = base_hit + d20
         judge = random.random()
-        logger.debug("命中计算：judge: {}, d20: {}, final_hit: {}".format(judge, d20, final_hit))
+        logger.debug("命中计算：judge: {}, d20: {}, base_hit: {}, final_hit: {}".format(judge, d20, base_hit, final_hit))
         if judge > final_hit:
             # 未命中，立即结算战斗
             self.CQApi.send_group_message(
@@ -153,6 +154,7 @@ class AttackSubCommand(BaseCommand):
         else:
             final_dmg = final_base_dmg
         logger.debug("final_dmg: {}".format(final_dmg))
+        final_dmg = int(final_dmg)
 
         # 3.4 最终伤害以及死亡结算
         rest_hp = target_obj.current_hp - final_dmg
