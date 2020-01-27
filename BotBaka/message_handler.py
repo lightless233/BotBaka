@@ -119,6 +119,7 @@ class MessageHandler:
             return
 
         if content.startswith("%"):
+            content = content.strip()
             command_list = re.split(r"\s+", content)
             input_command_name = command_list[0]
             command_instance: Optional[BaseCommand] = self.commands.get(input_command_name, None)
