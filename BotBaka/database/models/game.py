@@ -75,6 +75,25 @@ class PlayerManager(models.Manager):
                 return
             _player.save()
 
+    def update_sp_by_skill(self, attacker, skill_name):
+        _obj: PlayerModel = self.filter(qq=attacker).first()
+        if _obj is None:
+            return
+
+        if skill_name is None:
+            _obj.current_sp -= 1
+            _obj.save()
+        else:
+            # todo skill 实装的时候需要修改
+            return
+
+    def is_player_alive(self, qq):
+        _obj: PlayerModel = self.filter(qq=qq).first()
+        if _obj is None:
+            return
+
+        return _obj.current_hp != 0
+
 
 class PlayerModel(models.Model):
     class Meta:
@@ -103,9 +122,9 @@ class PlayerModel(models.Model):
 
     atk = models.PositiveIntegerField(default=GameBaseInitData.BASE_ATK)
     defend = models.PositiveIntegerField(default=GameBaseInitData.BASE_DEF)
-    cri = models.PositiveIntegerField(default=GameBaseInitData.BASE_CRI)
-    hit = models.PositiveIntegerField(default=GameBaseInitData.BASE_HIT)
-    eva = models.PositiveIntegerField(default=GameBaseInitData.BASE_EVA)
+    cri = models.FloatField(default=GameBaseInitData.BASE_CRI)
+    hit = models.FloatField(default=GameBaseInitData.BASE_HIT)
+    eva = models.FloatField(default=GameBaseInitData.BASE_EVA)
 
     created_time = models.DateTimeField(auto_now_add=True)
     updated_time = models.DateTimeField(auto_now=True)
@@ -119,6 +138,7 @@ class PlayerModel(models.Model):
 class PlayerRegainManager(models.Manager):
     hp_timedelta = 10
     sp_timedelta = 5
+    resurrect_timedelta = 60 * 6
 
     def update_next_time(self, target, qq):
 
@@ -148,6 +168,7 @@ class PlayerRegainModel(models.Model):
     qq = models.PositiveIntegerField(default=0, null=False)
     next_hp_time = models.DateTimeField(default=datetime.datetime.now)
     next_sp_time = models.DateTimeField(default=datetime.datetime.now)
+    next_resurrect_time = models.DateTimeField(default=datetime.datetime.now)
 
     created_time = models.DateTimeField(auto_now_add=True)
     updated_time = models.DateTimeField(auto_now=True)
