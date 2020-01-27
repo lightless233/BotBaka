@@ -77,4 +77,4 @@ class GameRegainTimer(SingleThreadEngine):
                 if current_time > regain_obj.next_sp_time and current_sp < max_sp:
                     with transaction.atomic():
                         PlayerModel.instance.update_x("sp", qq)
-                        PlayerRegainModel.instance.update("sp", qq)
+                        PlayerRegainModel.instance.update_next_time("sp", qq)
