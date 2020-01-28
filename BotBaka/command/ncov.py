@@ -66,7 +66,7 @@ class NCovCommand(BaseCommand):
                 message += "确认病例：{}\n".format(p_data.get("confirmedCount"))
                 message += "治愈病例：{}\n".format(p_data.get("curedCount"))
                 message += "死亡病例：{}\n".format(p_data.get("deadCount"))
-                message += "=========="
+                message += "==========\n"
                 message += "【{}】中各城市统计数据：\n".format(province_name)
                 for city_data in p_data.get("cities"):
                     message += "【{}】确认：{}，治愈：{}，死亡：{}\n".format(
@@ -88,10 +88,10 @@ class NCovCommand(BaseCommand):
                 stat.append(num)
 
             message = "【全国统计】\n"
-            message += "确诊：{}".format(stat[0])
-            message += "疑似：{}".format(stat[1])
-            message += "死亡：{}".format(stat[2])
-            message += "治愈：{}".format(stat[3])
+            message += "确诊：{}\n".format(stat[0])
+            message += "疑似：{}\n".format(stat[1])
+            message += "死亡：{}\n".format(stat[2])
+            message += "治愈：{}\n".format(stat[3])
             self.CQApi.send_group_message(from_group, from_qq, message)
 
         else:
@@ -103,7 +103,7 @@ class NCovCommand(BaseCommand):
                     message += "确认病例：{}\n".format(item.get("confirmedCount"))
                     message += "治愈病例：{}\n".format(item.get("curedCount"))
                     message += "死亡病例：{}\n".format(item.get("deadCount"))
-                    message += "=========="
+                    message += "==========\n"
                     message += "【{}】中各城市统计数据：\n".format(province_name)
                     for city_data in item.get("cities"):
                         message += "【{}】确认：{}，治愈：{}，死亡：{}\n".format(
