@@ -24,6 +24,7 @@ from BotBaka.command.attack import AttackCommand
 from BotBaka.command.base import BaseCommand
 from BotBaka.command.game.game_handler import GameCommand
 from BotBaka.command.misc_command import HelpCommand, ChangelogCommand
+from BotBaka.command.ncov import NCovCommand
 from BotBaka.command.news import NewsCommand
 from BotBaka.command.invite import InviteAcceptCommand, InviteCommand, InviteGuCommand
 from BotBaka.command.rss import RssCommand
@@ -61,6 +62,7 @@ class MessageHandler:
             "%ig": InviteGuCommand(),
             "%rss": RssCommand(),
             "%game": GameCommand(),
+            "%ncov": NCovCommand(),
         }
 
     def execute(self, message: str):
