@@ -20,6 +20,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from .base import BaseCommand
+from BotBaka.utils.log import logger
 
 
 class NCovCommand(BaseCommand):
@@ -49,7 +50,7 @@ class NCovCommand(BaseCommand):
         soup = BeautifulSoup(response.content)
         text = soup.find(id="getAreaStat").text
         pattern = r"window\.getAreaStat = (.+)}catch\(e\){}"
-        j = re.search(pattern, text).group(0)[0]
+        j = re.search(pattern, text).group(1)
         results = json.loads(j)
 
         # 全国信息
