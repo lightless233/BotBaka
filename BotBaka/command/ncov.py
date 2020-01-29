@@ -58,6 +58,12 @@ class NCovCommand(BaseCommand):
         j_data = json.loads(j)
         return j_data
 
+    def __get_timeline(self, soup):
+        data = soup.find(id="getTimelineService").text
+        pattern = r"window\.getTimelineService\s*=\s*(.+)}catch\(e\){}"
+        j = re.search(pattern, data)
+        return json.loads(j)
+
     def __format_item(self, item):
         province_name = item.get("provinceName")
 
