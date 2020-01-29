@@ -34,20 +34,21 @@ class NcovTimer(SingleThreadEngine):
 
     def _worker(self):
 
-        logger.info("ncov-timer start!")
+        logger.debug("ncov-timer start!")
 
         while self.is_running():
-
-            self.ev.wait(60 * 5)
 
             response = requests.get(self.url, timeout=12)
             soup = BeautifulSoup(response.content)
             data = soup.find(id="getTimelineService").text
             pattern = r"window\.getTimelineService\s*=\s*(.+)}catch\(e\){}"
-            j = re.search(pattern, data)
+            j = re.search(pattern, data).group(1)
+            # logger.debug("type of j: {}".format(type(j)))
             data = json.loads(j)
 
             for d in data:
                 title = "【{}】【{}】{}\n{}".format(d.get("id"), d.get("infoSource"), d.get("title"), d.get("summary"))
                 link = d.get("sourceUrl")
                 NewsModel.instance.create(title=title, url=link, has_send=1)
+
+            self.ev.wait(60 * 5)
