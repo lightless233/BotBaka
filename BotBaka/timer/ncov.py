@@ -49,6 +49,6 @@ class NcovTimer(SingleThreadEngine):
             for d in data:
                 title = "【{}】【{}】{}\n{}".format(d.get("id"), d.get("infoSource"), d.get("title"), d.get("summary"))
                 link = d.get("sourceUrl")
-                NewsModel.instance.create(title=title, url=link, has_send=1)
+                NewsModel.instance.create(title=title, url=link, has_send=0)
 
             self.ev.wait(60 * 5)
