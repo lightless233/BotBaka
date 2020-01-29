@@ -20,6 +20,7 @@ from bs4 import BeautifulSoup
 
 from .engine.thread import SingleThreadEngine
 from ..database.models import NewsModel
+from ..utils.log import logger
 
 
 class NcovTimer(SingleThreadEngine):
@@ -29,7 +30,11 @@ class NcovTimer(SingleThreadEngine):
 
         self.url = "https://3g.dxy.cn/newh5/view/pneumonia"
 
+        self.name = "ncov-timer"
+
     def _worker(self):
+
+        logger.info("ncov-timer start!")
 
         while self.is_running():
 
