@@ -51,6 +51,6 @@ class NcovTimer(SingleThreadEngine):
                 link = d.get("sourceUrl")
 
                 if not NewsModel.instance.get_news_by_url(link):
-                    NewsModel.instance.create(title=title, url=link, has_send=1)
+                    NewsModel.instance.create(title=title, url=link, has_send=0)
 
             self.ev.wait(60 * 5)
