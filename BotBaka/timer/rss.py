@@ -28,6 +28,7 @@ class RSSTimer(SingleThreadEngine):
         super(RSSTimer, self).__init__()
 
         self.name = "rss-timer"
+        self.tag = f"[${self.name}]"
 
         self.target_group = 672534169
 
@@ -43,11 +44,12 @@ class RSSTimer(SingleThreadEngine):
 
             # 取出所有的rss
             all_sources = RssSourceModel.instance.all()
+            logger.debug("{} size of all_sources: {}".format(self.tag, len(all_sources)))
 
             for source in all_sources:
                 logger.debug("Fetch {}({})...".format(source.name, source.url))
                 url = source.url
-                response = requests.get(url)
+                response = requests.get(url, timeout=12)
                 rss = feedparser.parse(response.text)
 
                 for e in rss.entries:
