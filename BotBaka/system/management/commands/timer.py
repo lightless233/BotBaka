@@ -17,7 +17,8 @@ import signal
 from django.core.management import BaseCommand
 
 from BotBaka.timer import SecNewsTimer, RyuoTimer, InviteTimer, RSSTimer, GameRegainTimer
-from BotBaka.timer.ncov import NcovTimer
+from BotBaka.timer import DrinkTimer, LifeTimer
+# from BotBaka.timer.ncov import NcovTimer
 from BotBaka.utils.log import logger
 
 
@@ -33,7 +34,9 @@ class Command(BaseCommand):
             InviteTimer(),
             RSSTimer(),
             GameRegainTimer(),
-            NcovTimer(),
+            # NcovTimer(),
+            DrinkTimer(),
+            LifeTimer(),
         ]
 
     def __sigint_handler(self, sig, frame):
