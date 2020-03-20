@@ -25,6 +25,7 @@ class DrinkTimer(SingleThreadEngine):
 
         self.name = "drink-timer"
         self.tag = f"[{self.name}]"
+        self.target_group = 672534169
 
     def _worker(self):
         """
@@ -56,7 +57,7 @@ class DrinkTimer(SingleThreadEngine):
                 else:
                     message = "[喝水提醒小助手] 我是喝水提醒小助手，小朋友们，该喝水了哦~"
 
-                self.CQApi.send_group_message(group=1, qq=None, message=message, auto_at=False)
+                self.CQApi.send_group_message(group=self.target_group, qq=None, message=message, auto_at=False)
                 self.ev.wait(65)    # 比1分钟多sleep一会，保证同一分钟不会发两次消息
 
             self.ev.wait(60)
