@@ -30,7 +30,7 @@ class RSSTimer(SingleThreadEngine):
         super(RSSTimer, self).__init__()
 
         self.name = "rss-timer"
-        self.tag = f"[${self.name}]"
+        self.tag = f"[{self.name}]"
 
         self.target_group = 672534169
 
