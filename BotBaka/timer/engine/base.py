@@ -13,7 +13,7 @@
     :copyright: Copyright (c) 2017 lightless. All rights reserved
 """
 import threading
-from typing import List
+from typing import List, Optional
 
 import abc
 
@@ -31,8 +31,8 @@ class CommonBaseEngine(object):
         self.name = "BaseEngine"
         self.status = self.EngineStatus.READY
         self.ev: threading.Event = threading.Event()
-        self.thread: threading.Thread = None
-        self.thread_pool: List[threading.Thread] = None
+        self.thread: Optional[threading.Thread] = None
+        self.thread_pool: Optional[List[threading.Thread]] = None
 
         self.CQApi = CQApi()
 

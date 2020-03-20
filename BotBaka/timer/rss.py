@@ -18,10 +18,12 @@ from typing import List
 
 import feedparser
 import requests
+from django.conf import settings
 
 from .engine.thread import SingleThreadEngine
 from ..database.models import NewsModel, RssSourceModel
 from ..utils.log import logger
+from ..utils.notification import ErrorNotification
 
 
 class RSSTimer(SingleThreadEngine):
@@ -56,8 +58,7 @@ class RSSTimer(SingleThreadEngine):
                 except requests.RequestException as e:
                     logger.error(f"${self.name} error while send http request to ${url}")
                     tbe = traceback.TracebackException(*sys.exc_info())
-                    full_err = ''.join(tbe.format())
-                    # todo full_err 后面再使用
+                    ErrorNotification.send(settings.CQ_ERROR_RECEIVER, tbe, e, self.CQApi)
                     continue
                 rss = feedparser.parse(response.text)
 
