@@ -49,7 +49,11 @@ class RSSTimer(SingleThreadEngine):
             for source in all_sources:
                 logger.debug("Fetch {}({})...".format(source.name, source.url))
                 url = source.url
-                response = requests.get(url, timeout=12)
+                try:
+                    response = requests.get(url, timeout=12)
+                except requests.RequestException as e:
+                    logger.error(f"${self.name} error while send http request to ${url}")
+                    continue
                 rss = feedparser.parse(response.text)
 
                 for e in rss.entries:
