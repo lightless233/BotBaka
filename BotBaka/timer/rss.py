@@ -12,6 +12,8 @@
     :license:   GPL-3.0, see LICENSE for more details.
     :copyright: Copyright (c) 2017-2020 lightless. All rights reserved
 """
+import sys
+import traceback
 from typing import List
 
 import feedparser
@@ -53,6 +55,9 @@ class RSSTimer(SingleThreadEngine):
                     response = requests.get(url, timeout=12)
                 except requests.RequestException as e:
                     logger.error(f"${self.name} error while send http request to ${url}")
+                    tbe = traceback.TracebackException(*sys.exc_info())
+                    full_err = ''.join(tbe.format())
+                    # todo full_err 后面再使用
                     continue
                 rss = feedparser.parse(response.text)
 
