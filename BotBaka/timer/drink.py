@@ -2,10 +2,10 @@
 # -*- coding:utf-8 -*-
 
 """
-    BotBaka.timer.base
+    BotBaka.timer.drink
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    $END$
+    喝水提醒小助手
 
     :author:    lightless <root@lightless.me>
     :homepage:  None
@@ -13,20 +13,3 @@
     :copyright: Copyright (c) 2017-2020 lightless. All rights reserved
 """
 
-import abc
-
-from BotBaka.api import CQApi
-
-
-class BaseTimer:
-
-    def __init__(self):
-        super(BaseTimer, self).__init__()
-
-        self.CQApi = CQApi()
-
-        self.name = "base-timer"
-
-    @abc.abstractmethod
-    def process(self):
-        pass
