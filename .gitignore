@@ -218,3 +218,4 @@ logs/
 logs/*
 BotBaka/logs/
 BotBaka/logs/*
+.idea/

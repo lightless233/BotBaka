@@ -12,6 +12,8 @@
     :license:   GPL-3.0, see LICENSE for more details.
     :copyright: Copyright (c) 2017-2020 lightless. All rights reserved
 """
+import sys
+import traceback
 from typing import List
 
 import feedparser
@@ -28,6 +30,7 @@ class RSSTimer(SingleThreadEngine):
         super(RSSTimer, self).__init__()
 
         self.name = "rss-timer"
+        self.tag = f"[${self.name}]"
 
         self.target_group = 672534169
 
@@ -43,11 +46,19 @@ class RSSTimer(SingleThreadEngine):
 
             # 取出所有的rss
             all_sources = RssSourceModel.instance.all()
+            logger.debug("{} size of all_sources: {}".format(self.tag, len(all_sources)))
 
             for source in all_sources:
                 logger.debug("Fetch {}({})...".format(source.name, source.url))
                 url = source.url
-                response = requests.get(url)
+                try:
+                    response = requests.get(url, timeout=12)
+                except requests.RequestException as e:
+                    logger.error(f"${self.name} error while send http request to ${url}")
+                    tbe = traceback.TracebackException(*sys.exc_info())
+                    full_err = ''.join(tbe.format())
+                    # todo full_err 后面再使用
+                    continue
                 rss = feedparser.parse(response.text)
 
                 for e in rss.entries:

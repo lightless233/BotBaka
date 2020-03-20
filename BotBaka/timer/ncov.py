@@ -38,6 +38,8 @@ class NcovTimer(SingleThreadEngine):
 
         while self.is_running():
 
+            break
+
             response = requests.get(self.url, timeout=12)
             soup = BeautifulSoup(response.content)
             data = soup.find(id="getTimelineService").text
