@@ -28,6 +28,7 @@ from BotBaka.command.ncov import NCovCommand
 from BotBaka.command.news import NewsCommand
 from BotBaka.command.invite import InviteAcceptCommand, InviteCommand, InviteGuCommand
 from BotBaka.command.rss import RssCommand
+from BotBaka.command.weather import WeatherCommand
 from BotBaka.data.common_data import MessageMeta, PostType, SubType, MessageType
 from BotBaka.pipeline.base import BasePipeline
 from BotBaka.pipeline.repeat_checker import RepeatCheckerPipeline
@@ -63,6 +64,8 @@ class MessageHandler:
             "%rss": RssCommand(),
             "%game": GameCommand(),
             "%ncov": NCovCommand(),
+            "%weather": WeatherCommand(),
+            "%weather-detail": WeatherCommand(),
         }
 
     def execute(self, message: str):
