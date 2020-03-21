@@ -63,7 +63,7 @@ class WeatherCommand(BaseCommand):
         now_weather = now_weather_result.get("now")
 
         # 如果没有请求详细数据，可以返回了
-        base_message = "[天气预报小助手]\n"
+        base_message = "【天气预报小助手】\n"
         base_message += "{} 当前天气 {}\n".format(now_city.get("location"), now_weather.get("cond_txt"))
         base_message += "温度：{}摄氏度, 体感温度：{}摄氏度\n".format(now_weather.get("tmp"), now_weather.get("fl"))
         base_message += "{}，{}级，风速：{}km/h\n".format(now_weather.get("wind_dir"), now_weather.get("wind_sc"),
@@ -74,17 +74,17 @@ class WeatherCommand(BaseCommand):
         )
 
         if not is_detail:
-            base_message += "当期在使用免费的API接口，赞助我一杯咖啡钱，可以切换到收费API获取更多功能哦~"
+            base_message += "当前在使用免费的API接口，赞助我一杯咖啡钱，可以切换到收费API获取更多功能哦~"
             self.CQApi.send_group_message(from_group, from_qq, base_message)
         else:
             # 请求详细数据，需要获取更多的信息
-            forecast_message = "【未来天气预报】"
+            forecast_message = "【未来天气预报】\n"
             forecast_response = requests.get(self.weather_forecast_api, params=params, timeout=9)
             forecast_response = forecast_response.json()
             daily_forecast = forecast_response.get("HeWeather6")[0].get("daily_forecast")
             for daily_weather in daily_forecast:
                 date = daily_weather.get("date")
-                forecast_message += "{}天气信息：\n".format(date)
+                forecast_message += "{} 天气信息：\n".format(date)
                 forecast_message += "气温：{}-{}摄氏度\n".format(daily_weather.get("tmp_min"), daily_weather.get("tmp_max"))
                 forecast_message += "{}转{}，降水概率：{}\n".format(
                     daily_weather.get("cond_txt_d"),
@@ -96,8 +96,11 @@ class WeatherCommand(BaseCommand):
                     daily_weather.get("hum"), daily_weather.get("pcpn"), daily_weather.get("pres"),
                     daily_weather.get("uv_index")
                 )
-                forecast_message += "日出：{}，日落：{}，月出：{}，月落：{}\n"
-                forecast_message += "=========\n\n"
+                forecast_message += "日出：{}，日落：{}，月出：{}，月落：{}\n".format(
+                    daily_weather.get("sr"), daily_weather.get("ss"),
+                    daily_weather.get("mr"), daily_weather.get("ms"),
+                )
+                forecast_message += "=========\n"
 
             air_response = requests.get(self.air_now_api, params=params, timeout=9)
             air_response = air_response.json()
@@ -132,5 +135,5 @@ class WeatherCommand(BaseCommand):
                 air_message += "==========\n"
 
             base_message += forecast_message + "\n" + air_message + "\n"
-            base_message += "当期在使用免费的API接口，赞助我一杯咖啡钱，可以切换到收费API获取更多功能哦~"
+            base_message += "当前在使用免费的API接口，赞助我一杯咖啡钱，可以切换到收费API获取更多功能哦~"
             self.CQApi.send_group_message(from_group, from_qq, base_message)
