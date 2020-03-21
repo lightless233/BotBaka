@@ -38,7 +38,7 @@ class WeatherCommand(BaseCommand):
 
         is_detail = False
         command = command_list[0]
-        if command == "weather-detail":
+        if command == "%weather-detail":
             is_detail = True
         else:
             is_detail = False
@@ -69,7 +69,7 @@ class WeatherCommand(BaseCommand):
         base_message += "{}，{}级，风速：{}km/h\n".format(now_weather.get("wind_dir"), now_weather.get("wind_sc"),
                                                     now_weather.get("wind_spd"))
         base_message += "相对湿度：{}，降水量：{}\n".format(now_weather.get("hum"), now_weather.get("pcpn"))
-        base_message += "大气压强：{}，能见度：{}，云量：{}".format(
+        base_message += "大气压强：{}，能见度：{}，云量：{}\n".format(
             now_weather.get("pres"), now_weather.get("vis"), now_weather.get("cloud")
         )
 
