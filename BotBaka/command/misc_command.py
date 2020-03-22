@@ -52,7 +52,7 @@ v1.0.3
 - 增加虚度光阴小助手
 - 修复部分bug
 
-v1.0.2  
+v1.0.2
 - 增加 %news 功能 (Author: WinFog)
 - 增加 %game 功能 (under developing)
 
