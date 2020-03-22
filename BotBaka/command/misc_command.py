@@ -16,7 +16,10 @@ from typing import List
 
 from BotBaka.command.base import BaseCommand
 
-help_msg = """BotBaka version 1.0.3
+
+VERSION = "1.0.4"
+
+help_msg = """BotBaka version {}
 
 --- 普通命令 ---
 %help - 显示这个页面
@@ -38,9 +41,13 @@ help_msg = """BotBaka version 1.0.3
 项目地址：https://github.com/lightless233/BotBaka
 Bug、Request报告地址：https://github.com/lightless233/BotBaka/issues
 ---------------
-"""
+""".format(VERSION)
 
-changelog = """v1.0.3
+changelog = """v1.0.4
+- 增加天气预报功能
+- 优化喝水小助手的提示频率
+
+v1.0.3
 - 增加喝水提醒小助手
 - 增加虚度光阴小助手
 - 修复部分bug

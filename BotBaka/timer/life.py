@@ -35,7 +35,7 @@ class LifeTimer(SingleThreadEngine):
 
         logger.debug(f"{self.tag} start!")
 
-        while True:
+        while self.is_running():
 
             current_time = datetime.datetime.now()
             h = current_time.hour
@@ -50,7 +50,7 @@ class LifeTimer(SingleThreadEngine):
                 # 先不管闰年，懒得算，等一个PR
                 percent = round(total_days / 365 * 100, 2)
 
-                message = "[虚度光阴小助手] \n今天是 {} 年的第 {} 天，今年已经过了 {}% 啦！".format(
+                message = "【虚度光阴小助手】 \n今天是 {} 年的第 {} 天，今年已经过了 {}% 啦！".format(
                     today.year, total_days, percent
                 )
                 self.CQApi.send_group_message(group=self.target_group, qq=None, message=message, auto_at=False)
