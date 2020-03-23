@@ -62,8 +62,12 @@ class DrinkTimer(SingleThreadEngine):
                     message = "【喝水提醒小助手】\n该喝水了哦~\n晚上也要多~喝~水~哦~"
                 elif h % 2 == 0:
                     message = "【喝水提醒小助手】\n该喝水了哦~"
+                else:
+                    self.ev.wait(60)
+                    continue
 
                 self.CQApi.send_group_message(group=self.target_group, qq=None, message=message, auto_at=False)
-                self.ev.wait(65)    # 比1分钟多sleep一会，保证同一分钟不会发两次消息
+                # 比1分钟多sleep一会，保证同一分钟不会发两次消息
+                self.ev.wait(65)
 
             self.ev.wait(60)
