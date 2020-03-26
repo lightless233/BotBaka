@@ -41,6 +41,11 @@ class RSSTimer(SingleThreadEngine):
         #     "https://seclists.org/rss/oss-sec.rss"
         # ]
 
+        self.__proxy = {
+            "http": "socks5://127.0.0.1:9050",
+            "https": "socks5://127.0.0.1:9050",
+        }
+
     def _worker(self):
         logger.debug("{} start.".format(self.name))
 
@@ -55,13 +60,16 @@ class RSSTimer(SingleThreadEngine):
                 url = source.url
                 try:
                     response = requests.get(url, timeout=12)
-                except requests.RequestException as e:
-                    logger.error(f"${self.name} error while send http request to ${url}")
-                    tbe = traceback.TracebackException(*sys.exc_info())
-                    ErrorNotification.send(settings.CQ_ERROR_RECEIVER, tbe, e, self.CQApi)
-                    continue
-                rss = feedparser.parse(response.text)
+                except requests.RequestException:
+                    logger.error(f"{self.name} error while send http request to {url}, try request with proxy...")
+                    try:
+                        response = requests.get(url, timeout=12, proxies=self.__proxy)
+                    except requests.RequestException as e2:
+                        tbe = traceback.TracebackException(*sys.exc_info())
+                        ErrorNotification.send(settings.CQ_ERROR_RECEIVER, tbe, e2, self.CQApi)
+                        continue
 
+                rss = feedparser.parse(response.text)
                 for e in rss.entries:
                     title = e.title
                     link = e.link
