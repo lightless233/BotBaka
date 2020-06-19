@@ -33,9 +33,9 @@ class Command(BaseCommand):
             RyuoTimer(),
             InviteTimer(),
             RSSTimer(),
-            GameRegainTimer(),
+            # GameRegainTimer(),
             # NcovTimer(),
-            DrinkTimer(),
+            # DrinkTimer(),
             LifeTimer(),
         ]
 
