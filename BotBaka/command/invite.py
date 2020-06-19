@@ -87,7 +87,7 @@ class InviteCommand(BaseCommand):
                 gu=-1,
             )
         logger.info("qqs: {}".format(qqs))
-        msg = "邀请成功，请以下用户尽快确认，事件id：{}, 如果违约将要变成鸽子精哦~\n".format(_obj.id)
+        msg = "邀请成功，请以下用户尽快确认。\n发送 %ia {0} true 命令确认接受该活动，否则发送 %ia {0} false 取消。\n如果违约将要变成鸽子精哦~\n".format(_obj.id)
         msg2 = "\n".join([QuickAt.build_at_msg(qq) for qq in qqs])
         self.CQApi.send_group_message(from_group, from_qq, msg + msg2)
 
