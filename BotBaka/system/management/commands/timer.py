@@ -36,7 +36,7 @@ class Command(BaseCommand):
             # GameRegainTimer(),
             # NcovTimer(),
             # DrinkTimer(),
-            LifeTimer(),
+            # LifeTimer(),
         ]
 
     def __sigint_handler(self, sig, frame):
